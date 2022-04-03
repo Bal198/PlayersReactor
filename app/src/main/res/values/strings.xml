@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Players Reactor</string>
+    <string-array name="difficulty">
+        <item>easy</item>
+        <item>medium</item>
+        <item>difficult</item>
+    </string-array>
+    <string name="countdown_txt">3</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/player_btn.xml" value="0.14074074074074075" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/player_selection.xml" value="0.14074074074074075" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/player_text_color.xml" value="0.14074074074074075" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/font/lighters_font.xml" value="0.14074074074074075" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/font/livvic_thin.xml" value="0.14074074074074075" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_countdown.xml" value="0.16145833333333334" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_game.xml" value="0.16145833333333334" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_game_selection.xml" value="0.16145833333333334" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_setting.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_two_players.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/dropdwon_item.xml" value="0.17552083333333332" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

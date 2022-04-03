@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:background="@color/blue2"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".GameActivity" android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="190dp">
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/player_btn"
+                android:id="@+id/player_two_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.0"/>
+
+
+
+        <TextView android:layout_width="60dp"
+                  android:text="-10"
+                  android:layout_height="40dp"
+                  android:id="@+id/score_player_two"
+                  android:fontFamily="@font/lightersdemo"
+                  android:textColor="@color/white"
+                  android:textSize="30sp"
+                  android:rotation="180"
+                  app:layout_constraintBottom_toBottomOf="@+id/player_two_btn"
+                  android:layout_marginBottom="8dp"
+                  app:layout_constraintStart_toStartOf="@+id/player_two_btn"
+                  android:layout_marginStart="335dp"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintTop_toTopOf="@+id/player_two_btn"
+                  android:layout_marginTop="134dp"
+                  app:layout_constraintHorizontal_bias="1.0"
+                  android:layout_marginEnd="8dp"
+                  app:layout_constraintVertical_bias="1.0"/>
+
+        <TextView android:layout_width="180dp"
+                  android:layout_height="40dp"
+                  android:text="text"
+                  android:autoSizeMaxTextSize="180dp"
+                  android:autoSizeMinTextSize="50dp"
+                  android:background="@color/light_grey"
+                  android:textColor="@color/white"
+                  android:fontFamily="@font/livvic_thin"
+                  android:autoSizeTextType="uniform"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintVertical_bias="0.100000024"
+                  android:rotation="180"
+                  android:visibility="invisible"
+                  android:id="@+id/personal_txt1"
+                  app:layout_constraintTop_toTopOf="@+id/player_two_btn"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</LinearLayout>
