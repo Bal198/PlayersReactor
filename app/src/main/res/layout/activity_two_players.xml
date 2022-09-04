@@ -6,24 +6,13 @@
               android:background="@color/blue2"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              tools:context=".GameActivity" android:orientation="vertical">
+              tools:context=".GameActivity"
+              android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="190dp">
-        <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/player_btn"
-                android:id="@+id/player_two_btn"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintVertical_bias="0.0"/>
-
-
+            android:layout_height="190dp"
+    android:layout_weight="0">
 
         <TextView android:layout_width="60dp"
                   android:text="-10"
@@ -33,22 +22,89 @@
                   android:textColor="@color/white"
                   android:textSize="30sp"
                   android:rotation="180"
+                  android:elevation="200dp"
                   app:layout_constraintBottom_toBottomOf="@+id/player_two_btn"
                   android:layout_marginBottom="8dp"
                   app:layout_constraintStart_toStartOf="@+id/player_two_btn"
                   android:layout_marginStart="335dp"
-                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintEnd_toEndOf="@+id/player_two_btn"
                   app:layout_constraintTop_toTopOf="@+id/player_two_btn"
                   android:layout_marginTop="134dp"
                   app:layout_constraintHorizontal_bias="1.0"
                   android:layout_marginEnd="8dp"
                   app:layout_constraintVertical_bias="1.0"/>
 
-        <TextView android:layout_width="180dp"
-                  android:layout_height="40dp"
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
                   android:text="text"
-                  android:autoSizeMaxTextSize="180dp"
-                  android:autoSizeMinTextSize="50dp"
+                  android:elevation="200dp"
+                  android:textSize="16sp"
+                  android:background="@color/light_grey"
+                  android:textColor="@color/white"
+                  android:fontFamily="@font/livvic_thin"
+                  android:autoSizeTextType="uniform"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  android:rotation="180"
+                  android:id="@+id/personal_txt1"
+                  app:layout_constraintTop_toTopOf="@+id/player_two_btn"
+                  app:layout_constraintVertical_bias="0.881" android:textAlignment="center"
+        />
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/player_btn"
+                android:id="@+id/player_two_btn" tools:ignore="SpeakableTextPresentCheck"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.0"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout android:layout_width="fill_parent"
+                 android:layout_height="fill_parent"
+                 android:id="@+id/fragment_game"
+    android:layout_weight="1"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="fill_parent" android:layout_height="190dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/player_btn"
+                android:id="@+id/player_one_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView android:layout_width="60dp"
+                  android:text="-10"
+                  android:elevation="200dp"
+                  android:layout_height="40dp"
+                  android:id="@+id/score_player_one"
+                  android:fontFamily="@font/lightersdemo"
+                  android:textColor="@color/white"
+                  android:textSize="30sp"
+                  android:visibility="visible"
+                  app:layout_constraintTop_toTopOf="@+id/player_one_btn"
+                  android:layout_marginTop="8dp"
+                  android:layout_marginEnd="335dp"
+                  app:layout_constraintEnd_toEndOf="@+id/player_one_btn"
+                  app:layout_constraintStart_toStartOf="@+id/player_one_btn"
+                  android:layout_marginStart="8dp"
+                  app:layout_constraintBottom_toBottomOf="@+id/player_one_btn"
+                  android:layout_marginBottom="134dp"
+                  app:layout_constraintVertical_bias="0.0"
+                  app:layout_constraintHorizontal_bias="0.0"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="text"
+                  android:textSize="16sp"
                   android:background="@color/light_grey"
                   android:textColor="@color/white"
                   android:fontFamily="@font/livvic_thin"
@@ -57,16 +113,35 @@
                   app:layout_constraintStart_toStartOf="parent"
                   app:layout_constraintBottom_toBottomOf="parent"
                   app:layout_constraintVertical_bias="0.100000024"
-                  android:rotation="180"
                   android:visibility="invisible"
-                  android:id="@+id/personal_txt1"
-                  app:layout_constraintTop_toTopOf="@+id/player_two_btn"/>
-
-
+                  android:id="@+id/personal_txt2"
+                  android:elevation="200dp"
+                  app:layout_constraintTop_toTopOf="@+id/player_one_btn"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:visibility="gone"
+            android:layout_height="0dp"
+            android:id="@+id/player_three_btn"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:visibility="gone"
+            android:layout_height="0dp"
+            android:id="@+id/player_four_btn"/>
 
-
+    <TextView android:layout_width="0dp" android:layout_height="0dp"
+              android:visibility="gone"
+              android:id="@+id/personal_txt3" android:text="text"/>
+    <TextView android:layout_width="0dp" android:layout_height="0dp"
+              android:visibility="gone"
+              android:id="@+id/personal_txt4" android:text="text"/>
+    <TextView android:layout_width="0dp" android:layout_height="0dp"
+              android:visibility="gone"
+              android:id="@+id/score_player_three" android:text="-10"/>
+    <TextView android:layout_width="0dp" android:layout_height="0dp"
+              android:visibility="gone"
+              android:id="@+id/score_player_four" android:text="-10"/>
 </LinearLayout>

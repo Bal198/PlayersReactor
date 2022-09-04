@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+// TODO: 04/09/2022 Da inserire una lista di check box per selezionare i vari giochi; DA FARE PER ULTIMO
 
 public class GameSelection extends AppCompatActivity {
     private Button backToSettings;
