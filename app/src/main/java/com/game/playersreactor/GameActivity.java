@@ -204,8 +204,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void updateScore() {
         player1Score.setText(String.format("%d", player1.getScore()));
         player2Score.setText(String.format("%d", player2.getScore()));
-        player3Score.setText(String.format("%d", player3.getScore()));
-        player4Score.setText(String.format("%d", player4.getScore()));
+        //Commentate via in quanto generavano nullPointerException
+//        player3Score.setText(String.format("%d", player3.getScore()));
+//        player4Score.setText(String.format("%d", player4.getScore()));
     }
 
 
