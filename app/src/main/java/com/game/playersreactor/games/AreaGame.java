@@ -3,6 +3,8 @@ package com.game.playersreactor.games;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +16,6 @@ import com.game.playersreactor.R;
 
 import java.util.*;
 
-import static java.util.Objects.*;
-
 public class AreaGame extends MyFragment {
 
     public TextView areaTxt1, areaTxt2;
@@ -23,7 +23,7 @@ public class AreaGame extends MyFragment {
     public int[] area;
     public int rightValue;
     public int leftValue;
-    private Random random = new Random();
+    private final Random random = new Random();
     private int difficulty;
     private ArrayList<Integer> colorList;
     public Timer timer;
@@ -62,23 +62,30 @@ public class AreaGame extends MyFragment {
         task = new TimerTask() {
             @Override
             public void run() {
-                int c = random.nextInt(colorList.size());
-                rightValue = random.nextInt(country.size());
-                leftValue = random.nextInt(country.size());
-                areaTxt2.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
-                areaTxt1.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
-                areaTxt2.setTextSize(24);
-                areaTxt1.setTextSize(24);
-                areaTxt2.setTextColor(colorList.get(c));
-                areaTxt1.setTextColor(colorList.get(c));
-                areaTxt2.setVisibility(View.VISIBLE);
-                areaTxt1.setVisibility(View.VISIBLE);
+                //in questo modo gli dico fare queste operazione sul main thread
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        int c = random.nextInt(colorList.size());
+                        rightValue = random.nextInt(country.size());
+                        leftValue = random.nextInt(country.size());
+                        areaTxt2.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
+                        areaTxt1.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
+                        areaTxt2.setTextSize(24);
+                        areaTxt1.setTextSize(24);
+                        areaTxt2.setTextColor(colorList.get(c));
+                        areaTxt1.setTextColor(colorList.get(c));
+                        areaTxt2.setVisibility(View.VISIBLE);
+                        areaTxt1.setVisibility(View.VISIBLE);
+                    }
+                });
             }
         };
 
         setAllInvisible();
         getSpeed();
         showGameName();
+        startGame();
     }
 
     public void getSpeed() {
@@ -99,7 +106,7 @@ public class AreaGame extends MyFragment {
     }
 
     @SuppressLint("ResourceAsColor")
-    public void showGameName() {
+    public synchronized void showGameName() {
         exp2.setVisibility(View.VISIBLE);
         exp1.setVisibility(View.VISIBLE);
 
@@ -129,18 +136,24 @@ public class AreaGame extends MyFragment {
 
     @Override
     public void startGame() {
-        if (timer != null) {
-            timer.schedule(task, 1500, speed);
-        }
+        timer = new Timer();
+        timer.schedule(task, 1500, speed);
     }
 
     @Override
-    public void showExplanation() {
-        ((GameActivity) (requireActivity())).personalTxt1.setText("Tap when area is right");
-        ((GameActivity) requireActivity()).personalTxt2.setText("Tap when area is right");
+    public synchronized void showExplanation() {
+        //in questo modo gli dico fare queste operazione sul main thread
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                String s = GameActivity.explanation.get(0);
+                ((GameActivity) (requireActivity())).personalTxt1.setText(s);
+                ((GameActivity) requireActivity()).personalTxt2.setText(s);
 
-        ((GameActivity) requireActivity()).personalTxt1.setVisibility(View.VISIBLE);
-        ((GameActivity) requireActivity()).personalTxt2.setVisibility(View.VISIBLE);
+                ((GameActivity) requireActivity()).personalTxt1.setVisibility(View.VISIBLE);
+                ((GameActivity) requireActivity()).personalTxt2.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     public void resume() {
@@ -150,8 +163,6 @@ public class AreaGame extends MyFragment {
 
     @Override
     public void stop() {
-        if (timer != null) {
-            timer.cancel();
-        }
+        timer.cancel();
     }
 }

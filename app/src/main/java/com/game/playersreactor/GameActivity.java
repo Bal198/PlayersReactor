@@ -32,6 +32,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public List<String> gameExplanation;
     public List<String> shoutVictory;
     public List<String> shoutLoss;
+    public static List<String> explanation;
     public Player player1 = new Player(),
             player2 = new Player(),
             player3 = new Player(),
@@ -88,6 +89,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         shoutVictory = Arrays.asList(getResources().getStringArray(R.array.shout_victory));
         shoutLoss = new ArrayList<>();
         shoutLoss = Arrays.asList(getResources().getStringArray(R.array.shout_loss));
+        explanation = new ArrayList<>();
+        explanation = Arrays.asList(getResources().getStringArray(R.array.explanation));
 
 
         player2btn = findViewById(R.id.player_two_btn);
@@ -194,7 +197,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             // getSupportFragmentManager().findFragmentById(R.id.fragment_game).onDestroy();
             //  callFragment();
         }
-        fragment.resume();
     }
 
 
