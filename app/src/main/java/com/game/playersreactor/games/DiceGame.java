@@ -146,6 +146,11 @@ public class DiceGame extends MyFragment {
         t1.cancel();
     }
 
+    @Override
+    public void resume() {
+
+    }
+
     public boolean check() {
         for (int i : nums) {
             if (i > 5) {

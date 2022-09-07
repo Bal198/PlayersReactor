@@ -3,7 +3,6 @@ package com.game.playersreactor;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,10 +17,7 @@ import com.game.playersreactor.games.DiceGame;
 import com.game.playersreactor.games.MyFragment;
 import com.game.playersreactor.games.ShoutFinalVictory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static com.game.playersreactor.MainActivity.NUMPLAYERS;
 import static com.game.playersreactor.SettingActivity.DIFFICULTY;
@@ -59,6 +55,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences sharedPreferences = getSharedPreferences(mPrefs, MODE_PRIVATE);
         numPlayers = sharedPreferences.getInt(NUMPLAYERS, 0);
         difficulty = sharedPreferences.getInt(DIFFICULTY, 0);
+
 
         switch (numPlayers) {
             /*per ora faccia solo al versione con due giocatori*/
@@ -127,8 +124,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             if (modeList.get(currentFragment).inList) {
                 replaceFragment(modeList.get(currentFragment).game);
-            }
-            else{
+            } else {
                 currentFragment++;
                 callFragment();
             }
@@ -195,9 +191,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (gameCount >= 3) {
             gameCount = 0;
-           // getSupportFragmentManager().findFragmentById(R.id.fragment_game).onDestroy();
-          //  callFragment();
+            // getSupportFragmentManager().findFragmentById(R.id.fragment_game).onDestroy();
+            //  callFragment();
         }
+        fragment.resume();
     }
 
 
@@ -238,13 +235,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        CountDownTimer t2 = new CountDownTimer(1000, 1000) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
-            public void onTick(long l) {
-            }
-
-            @Override
-            public void onFinish() {
+            public void run() {
                 player1btn.setBackgroundResource(R.drawable.player_btn);
                 player2btn.setBackgroundResource(R.drawable.player_btn);
                 //player3btn.setBackgroundResource(R.drawable.player_btn);
@@ -254,7 +248,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 fragment.showExplanation();
                 fragment.startGame();
             }
-        }.start();
+        }, 1000);
 
     }
 
@@ -286,13 +280,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        CountDownTimer t2 = new CountDownTimer(1000, 1000) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
-            public void onTick(long l) {
-            }
-
-            @Override
-            public void onFinish() {
+            public void run() {
                 player1btn.setBackgroundResource(R.drawable.player_btn);
                 player2btn.setBackgroundResource(R.drawable.player_btn);
                 //player3btn.setBackgroundResource(R.drawable.player_btn);
@@ -302,8 +293,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 fragment.showExplanation();
                 fragment.startGame();
             }
-        }.start();
-
+        }, 1000);
     }
 
 }

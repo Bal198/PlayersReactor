@@ -25,4 +25,5 @@ public abstract class MyFragment extends Fragment {
     public abstract void startGame(); //inizia il gioco
     public abstract void showExplanation(); //mostra il titolo per gioco
     public abstract void stop(); //fine gioco
+    public abstract void resume();
 }

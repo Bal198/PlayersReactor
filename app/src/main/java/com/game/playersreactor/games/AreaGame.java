@@ -3,32 +3,32 @@ package com.game.playersreactor.games;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.game.playersreactor.GameActivity;
 import com.game.playersreactor.R;
 
 import java.util.*;
 
+import static java.util.Objects.*;
+
 public class AreaGame extends MyFragment {
 
     public TextView areaTxt1, areaTxt2;
-    public CountDownTimer t1;
     public List<String> country;
     public int[] area;
     public int rightValue;
-    public Handler handler;
     public int leftValue;
     private Random random = new Random();
     private int difficulty;
     private ArrayList<Integer> colorList;
-    private Runnable timer;
+    public Timer timer;
+    private TimerTask task;
+    public int speed;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +41,7 @@ public class AreaGame extends MyFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        timer = new Timer();
         difficulty = GameActivity.difficulty;
         areaTxt1 = view.findViewById(R.id.area_txt);
         areaTxt2 = view.findViewById(R.id.area_txt2);
@@ -48,8 +49,8 @@ public class AreaGame extends MyFragment {
         country = Arrays.asList(getResources().getStringArray(R.array.country));
         area = getResources().getIntArray(R.array.area);
 
-        String color[] = getContext().getResources().getStringArray(R.array.colors);
-        colorList = new ArrayList<Integer>();
+        String[] color = requireContext().getResources().getStringArray(R.array.colors);
+        colorList = new ArrayList<>();
 
         for (int i = 0; i < color.length; i++) {
             colorList.add(Color.parseColor(color[i]));
@@ -58,8 +59,43 @@ public class AreaGame extends MyFragment {
         exp1 = view.findViewById(R.id.explanation1);
         exp2 = view.findViewById(R.id.explanation2);
 
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                int c = random.nextInt(colorList.size());
+                rightValue = random.nextInt(country.size());
+                leftValue = random.nextInt(country.size());
+                areaTxt2.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
+                areaTxt1.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
+                areaTxt2.setTextSize(24);
+                areaTxt1.setTextSize(24);
+                areaTxt2.setTextColor(colorList.get(c));
+                areaTxt1.setTextColor(colorList.get(c));
+                areaTxt2.setVisibility(View.VISIBLE);
+                areaTxt1.setVisibility(View.VISIBLE);
+            }
+        };
+
         setAllInvisible();
+        getSpeed();
         showGameName();
+    }
+
+    public void getSpeed() {
+        switch (difficulty) {
+            case 1: {
+                speed = 1800;
+                break;
+            }
+            case 2: {
+                speed = 1000;
+                break;
+            }
+            default: {
+                speed = 2200;
+                break;
+            }
+        }
     }
 
     @SuppressLint("ResourceAsColor")
@@ -67,109 +103,55 @@ public class AreaGame extends MyFragment {
         exp2.setVisibility(View.VISIBLE);
         exp1.setVisibility(View.VISIBLE);
 
-        CountDownTimer timer = new CountDownTimer(1800, 1000) {
+        timer.schedule(new TimerTask() {
             @Override
-            public void onTick(long l) {
-            }
-
-            @Override
-            public void onFinish() {
+            public void run() {
                 exp2.setVisibility(View.INVISIBLE);
                 exp1.setVisibility(View.INVISIBLE);
-                try {
-                    showExplanation();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                startGame();
+                showExplanation();
             }
-        }.start();
+        }, 1500);
 
     }
 
 
     private void setAllInvisible() {
-        ((GameActivity) getActivity()).personalTxt1.setVisibility(View.INVISIBLE);
-        ((GameActivity) getActivity()).personalTxt2.setVisibility(View.INVISIBLE);
+        ((GameActivity) requireActivity()).personalTxt1.setVisibility(View.INVISIBLE);
+        ((GameActivity) requireActivity()).personalTxt2.setVisibility(View.INVISIBLE);
         areaTxt2.setVisibility(View.INVISIBLE);
         areaTxt1.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public boolean check() {
-        if (area[leftValue] <= area[rightValue]) {
-            return true;
-        } else {
-            return false;
-        }
+        return area[leftValue] <= area[rightValue];
     }
 
     @Override
     public void startGame() {
-        final int[] time = new int[1];
-
-        new CountDownTimer(1000, 600) {
-            @Override
-            public void onTick(long l) {
-
-            }
-
-            @Override
-            public void onFinish() {
-                switch (difficulty) {
-                    case 1: {
-                        time[0] = 1800;
-                        break;
-                    }
-                    case 2: {
-                        time[0] = 1000;
-                        break;
-                    }
-                    default: {
-                        time[0] = 2200;
-                        break;
-                    }
-                }
-
-
-                t1 = new CountDownTimer(100000000, time[0]) {
-                    @Override
-                    public void onTick(long l) {
-                        int c = random.nextInt(colorList.size());
-                        rightValue = random.nextInt(country.size());
-                        leftValue = random.nextInt(country.size());
-                        areaTxt2.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
-                        areaTxt1.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
-                        areaTxt2.setTextSize(24);
-                        areaTxt1.setTextSize(24);
-                        areaTxt2.setTextColor(colorList.get(c));
-                        areaTxt1.setTextColor(colorList.get(c));
-                        areaTxt2.setVisibility(View.VISIBLE);
-                        areaTxt1.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                    }
-                }.start();
-            }
-        }.start();
+        if (timer != null) {
+            timer.schedule(task, 1500, speed);
+        }
     }
 
     @Override
     public void showExplanation() {
-        ((GameActivity) (getActivity())).personalTxt1.setText("Tap when area is right");
-        ((GameActivity) getActivity()).personalTxt2.setText("Tap when area is right");
+        ((GameActivity) (requireActivity())).personalTxt1.setText("Tap when area is right");
+        ((GameActivity) requireActivity()).personalTxt2.setText("Tap when area is right");
 
-        ((GameActivity) getActivity()).personalTxt1.setVisibility(View.VISIBLE);
-        ((GameActivity) getActivity()).personalTxt2.setVisibility(View.VISIBLE);
+        ((GameActivity) requireActivity()).personalTxt1.setVisibility(View.VISIBLE);
+        ((GameActivity) requireActivity()).personalTxt2.setVisibility(View.VISIBLE);
+    }
+
+    public void resume() {
+        timer = new Timer();
+        timer.schedule(task, 1500, speed);
     }
 
     @Override
     public void stop() {
-        if(t1 != null) {
-            t1.cancel();
+        if (timer != null) {
+            timer.cancel();
         }
-        t1 = null;
     }
 }
