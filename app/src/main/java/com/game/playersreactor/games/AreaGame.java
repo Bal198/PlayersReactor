@@ -15,6 +15,10 @@ import com.game.playersreactor.GameActivity;
 import com.game.playersreactor.R;
 
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class AreaGame extends MyFragment {
 
@@ -26,8 +30,10 @@ public class AreaGame extends MyFragment {
     private final Random random = new Random();
     private int difficulty;
     private ArrayList<Integer> colorList;
-    public Timer timer;
-    private TimerTask task;
+
+    public ScheduledExecutorService service;
+    ScheduledFuture<?> future;
+    public Runnable runnable;
     public int speed;
 
     @Override
@@ -41,7 +47,7 @@ public class AreaGame extends MyFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        timer = new Timer();
+        service = Executors.newScheduledThreadPool(1);
         difficulty = GameActivity.difficulty;
         areaTxt1 = view.findViewById(R.id.area_txt);
         areaTxt2 = view.findViewById(R.id.area_txt2);
@@ -59,27 +65,24 @@ public class AreaGame extends MyFragment {
         exp1 = view.findViewById(R.id.explanation1);
         exp2 = view.findViewById(R.id.explanation2);
 
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                //in questo modo gli dico fare queste operazione sul main thread
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        int c = random.nextInt(colorList.size());
-                        rightValue = random.nextInt(country.size());
-                        leftValue = random.nextInt(country.size());
-                        areaTxt2.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
-                        areaTxt1.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
-                        areaTxt2.setTextSize(24);
-                        areaTxt1.setTextSize(24);
-                        areaTxt2.setTextColor(colorList.get(c));
-                        areaTxt1.setTextColor(colorList.get(c));
-                        areaTxt2.setVisibility(View.VISIBLE);
-                        areaTxt1.setVisibility(View.VISIBLE);
-                    }
-                });
-            }
+        runnable = () -> {
+            //in questo modo gli dico fare queste operazione sul main thread
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    int c = random.nextInt(colorList.size());
+                    rightValue = random.nextInt(country.size());
+                    leftValue = random.nextInt(country.size());
+                    areaTxt2.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
+                    areaTxt1.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
+                    areaTxt2.setTextSize(24);
+                    areaTxt1.setTextSize(24);
+                    areaTxt2.setTextColor(colorList.get(c));
+                    areaTxt1.setTextColor(colorList.get(c));
+                    areaTxt2.setVisibility(View.VISIBLE);
+                    areaTxt1.setVisibility(View.VISIBLE);
+                }
+            });
         };
 
         setAllInvisible();
@@ -91,15 +94,15 @@ public class AreaGame extends MyFragment {
     public void getSpeed() {
         switch (difficulty) {
             case 1: {
-                speed = 1800;
-                break;
-            }
-            case 2: {
                 speed = 1000;
                 break;
             }
+            case 2: {
+                speed = 500;
+                break;
+            }
             default: {
-                speed = 2200;
+                speed = 1200;
                 break;
             }
         }
@@ -110,15 +113,14 @@ public class AreaGame extends MyFragment {
         exp2.setVisibility(View.VISIBLE);
         exp1.setVisibility(View.VISIBLE);
 
-        timer.schedule(new TimerTask() {
+        service.schedule(new Runnable() {
             @Override
             public void run() {
                 exp2.setVisibility(View.INVISIBLE);
                 exp1.setVisibility(View.INVISIBLE);
                 showExplanation();
             }
-        }, 1500);
-
+        }, 1500, TimeUnit.MILLISECONDS);
     }
 
 
@@ -136,8 +138,7 @@ public class AreaGame extends MyFragment {
 
     @Override
     public void startGame() {
-        timer = new Timer();
-        timer.schedule(task, 1500, speed);
+        future = service.scheduleAtFixedRate(runnable, 1500, speed, TimeUnit.MILLISECONDS);
     }
 
     @Override
@@ -157,12 +158,13 @@ public class AreaGame extends MyFragment {
     }
 
     public void resume() {
-        timer = new Timer();
-        timer.schedule(task, 1500, speed);
+        stop();
+        showExplanation();
+        future = service.scheduleAtFixedRate(runnable, 500, speed, TimeUnit.MILLISECONDS);
     }
 
     @Override
     public void stop() {
-        timer.cancel();
+        future.cancel(false);
     }
 }

@@ -18,6 +18,10 @@ import com.game.playersreactor.games.MyFragment;
 import com.game.playersreactor.games.ShoutFinalVictory;
 
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static com.game.playersreactor.MainActivity.NUMPLAYERS;
 import static com.game.playersreactor.SettingActivity.DIFFICULTY;
@@ -237,21 +241,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                player1btn.setBackgroundResource(R.drawable.player_btn);
-                player2btn.setBackgroundResource(R.drawable.player_btn);
-                //player3btn.setBackgroundResource(R.drawable.player_btn);
-                //player4btn.setBackgroundResource(R.drawable.player_btn);
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+        service.schedule(() -> {
+            player1btn.setBackgroundResource(R.drawable.player_btn);
+            player2btn.setBackgroundResource(R.drawable.player_btn);
+            //player3btn.setBackgroundResource(R.drawable.player_btn);
+            //player4btn.setBackgroundResource(R.drawable.player_btn);
 
-                assert fragment != null;
-                fragment.showExplanation();
-                fragment.startGame();
-            }
-        }, 1000);
+            assert fragment != null;
+            fragment.resume();
 
+        }, 1, TimeUnit.SECONDS);
     }
 
     @SuppressLint({"ResourceAsColor", "NonConstantResourceId"})
@@ -282,20 +282,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                player1btn.setBackgroundResource(R.drawable.player_btn);
-                player2btn.setBackgroundResource(R.drawable.player_btn);
-                //player3btn.setBackgroundResource(R.drawable.player_btn);
-                //player4btn.setBackgroundResource(R.drawable.player_btn);
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+        service.schedule(() -> {
+            player1btn.setBackgroundResource(R.drawable.player_btn);
+            player2btn.setBackgroundResource(R.drawable.player_btn);
+            //player3btn.setBackgroundResource(R.drawable.player_btn);
+            //player4btn.setBackgroundResource(R.drawable.player_btn);
 
-                assert fragment != null;
-                fragment.showExplanation();
-                fragment.startGame();
-            }
-        }, 1000);
+            assert fragment != null;
+            fragment.resume();
+        }, 1, TimeUnit.SECONDS);
     }
 
 }
