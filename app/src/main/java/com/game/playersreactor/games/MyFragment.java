@@ -1,5 +1,6 @@
 package com.game.playersreactor.games;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -7,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.game.playersreactor.GameActivity;
+
+import java.util.Random;
 
 public abstract class MyFragment extends Fragment {
     public TextView exp1, exp2;
@@ -23,6 +26,13 @@ public abstract class MyFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         difficulty = GameActivity.difficulty;
+    }
+    public int getRandomColor() {
+        Random random = new Random();
+        int r = (int) (random.nextInt() / 2 + 0.5);
+        int g = (int) (random.nextInt() / 2 + 0.5);
+        int b = (int) (random.nextInt() / 2 + 0.5);
+        return Color.argb(255, r, g, b);
     }
     public void getSpeed() {
         switch (difficulty) {

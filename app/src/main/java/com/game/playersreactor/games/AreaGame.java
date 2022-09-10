@@ -28,8 +28,6 @@ public class AreaGame extends MyFragment {
     public int rightValue;
     public int leftValue;
     private final Random random = new Random();
-    private ArrayList<Integer> colorList;
-
     public ScheduledExecutorService service;
     public ScheduledFuture<?> future;
     public Runnable runnable;
@@ -51,13 +49,6 @@ public class AreaGame extends MyFragment {
         country = Arrays.asList(getResources().getStringArray(R.array.country));
         area = getResources().getIntArray(R.array.area);
 
-        String[] color = requireContext().getResources().getStringArray(R.array.colors);
-        colorList = new ArrayList<>();
-
-        for (int i = 0; i < color.length; i++) {
-            colorList.add(Color.parseColor(color[i]));
-        }
-
         exp1 = view.findViewById(R.id.explanation1);
         exp2 = view.findViewById(R.id.explanation2);
 
@@ -66,15 +57,15 @@ public class AreaGame extends MyFragment {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    int c = random.nextInt(colorList.size());
+                    int c = getRandomColor();
                     rightValue = random.nextInt(country.size());
                     leftValue = random.nextInt(country.size());
                     areaTxt2.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
                     areaTxt1.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
                     areaTxt2.setTextSize(24);
                     areaTxt1.setTextSize(24);
-                    areaTxt2.setTextColor(colorList.get(c));
-                    areaTxt1.setTextColor(colorList.get(c));
+                    areaTxt2.setTextColor(c);
+                    areaTxt1.setTextColor(c);
                     areaTxt2.setVisibility(View.VISIBLE);
                     areaTxt1.setVisibility(View.VISIBLE);
                     if(getActivity() != null) {

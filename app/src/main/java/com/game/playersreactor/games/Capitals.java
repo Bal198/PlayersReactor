@@ -14,7 +14,10 @@ import androidx.annotation.Nullable;
 import com.game.playersreactor.GameActivity;
 import com.game.playersreactor.R;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -27,8 +30,6 @@ public class Capitals extends MyFragment {
     public int rightValue;
     public int leftValue;
     private final Random random = new Random();
-    private ArrayList<Integer> colorList;
-
     public ScheduledExecutorService service;
     public ScheduledFuture<?> future;
     public Runnable runnable;
@@ -53,13 +54,6 @@ public class Capitals extends MyFragment {
         capital = new ArrayList<>();
         capital = Arrays.asList(getResources().getStringArray(R.array.capitals));
 
-        String[] color = requireContext().getResources().getStringArray(R.array.colors);
-        colorList = new ArrayList<>();
-
-        for (int i = 0; i < color.length; i++) {
-            colorList.add(Color.parseColor(color[i]));
-        }
-
         exp1 = view.findViewById(R.id.explanation1);
         exp2 = view.findViewById(R.id.explanation2);
 
@@ -68,7 +62,7 @@ public class Capitals extends MyFragment {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    int c = random.nextInt(colorList.size());
+                    int c;
                     rightValue = random.nextInt(country.size());
                     int n = random.nextInt(4);
                     if (rightValue < country.size() - 4) {
@@ -87,11 +81,12 @@ public class Capitals extends MyFragment {
                     countryTxt2.setTextSize(26);
                     capitalTxt2.setTextSize(24);
                     capitalTxt1.setTextSize(24);
-                    capitalTxt2.setTextColor(colorList.get(c));
-                    capitalTxt1.setTextColor(colorList.get(c));
-                    c= random.nextInt(colorList.size());
-                    countryTxt1.setTextColor(colorList.get(c));
-                    countryTxt2.setTextColor(colorList.get(c));
+                    c = getRandomColor();
+                    capitalTxt2.setTextColor(c);
+                    capitalTxt1.setTextColor(c);
+                    c = getRandomColor();
+                    countryTxt1.setTextColor(c);
+                    countryTxt2.setTextColor(c);
                     capitalTxt2.setVisibility(View.VISIBLE);
                     capitalTxt1.setVisibility(View.VISIBLE);
                     countryTxt1.setVisibility(View.VISIBLE);
@@ -131,7 +126,7 @@ public class Capitals extends MyFragment {
     private void setAllInvisible() {
         ((GameActivity) requireActivity()).personalTxt1.setVisibility(View.INVISIBLE);
         ((GameActivity) requireActivity()).personalTxt2.setVisibility(View.INVISIBLE);
-        if(capitalTxt1 != null && capitalTxt2 != null) {
+        if (capitalTxt1 != null && capitalTxt2 != null) {
             capitalTxt2.setVisibility(View.INVISIBLE);
             capitalTxt1.setVisibility(View.INVISIBLE);
             countryTxt1.setVisibility(View.INVISIBLE);
@@ -156,7 +151,7 @@ public class Capitals extends MyFragment {
             @Override
             public void run() {
                 if (getActivity() != null) {
-                    String s = GameActivity.explanation.get(0);
+                    String s = GameActivity.explanation.get(2);
                     ((GameActivity) getActivity()).personalTxt1.setText(s);
                     ((GameActivity) getActivity()).personalTxt2.setText(s);
 

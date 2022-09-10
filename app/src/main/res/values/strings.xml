@@ -9,6 +9,9 @@
 
     <string-array name="explanation">
         <item>Tap when area is right!</item>
+        <item>Tap when population is right!</item>
+        <item>Tap when capital is right!</item>
+
     </string-array>
 
     <string-array name="dice">

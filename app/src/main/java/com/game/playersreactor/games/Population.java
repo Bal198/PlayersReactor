@@ -27,8 +27,6 @@ public class Population extends MyFragment {
     public int rightValue;
     public int leftValue;
     private final Random random = new Random();
-    private ArrayList<Integer> colorList;
-
     public ScheduledExecutorService service;
     public ScheduledFuture<?> future;
     public Runnable runnable;
@@ -50,13 +48,6 @@ public class Population extends MyFragment {
         country = Arrays.asList(getResources().getStringArray(R.array.country));
         population = getResources().getIntArray(R.array.population);
 
-        String[] color = requireContext().getResources().getStringArray(R.array.colors);
-        colorList = new ArrayList<>();
-
-        for (int i = 0; i < color.length; i++) {
-            colorList.add(Color.parseColor(color[i]));
-        }
-
         exp1 = view.findViewById(R.id.explanation1);
         exp2 = view.findViewById(R.id.explanation2);
 
@@ -65,15 +56,15 @@ public class Population extends MyFragment {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    int c = random.nextInt(colorList.size());
+                    int c = getRandomColor();
                     rightValue = random.nextInt(country.size());
                     leftValue = random.nextInt(country.size());
                     poplutaionTxt2.setText(String.format("%s > %s", country.get(leftValue), country.get(rightValue)));
                     poplutaionTxt1.setText(String.format("%s > %s", country.get(leftValue), country.get(rightValue)));
                     poplutaionTxt2.setTextSize(24);
                     poplutaionTxt1.setTextSize(24);
-                    poplutaionTxt2.setTextColor(colorList.get(c));
-                    poplutaionTxt1.setTextColor(colorList.get(c));
+                    poplutaionTxt2.setTextColor(c);
+                    poplutaionTxt1.setTextColor(c);
                     poplutaionTxt2.setVisibility(View.VISIBLE);
                     poplutaionTxt1.setVisibility(View.VISIBLE);
                     if(getActivity() != null) {
@@ -134,7 +125,7 @@ public class Population extends MyFragment {
             @Override
             public void run() {
                 if(getActivity() != null){
-                    String s = GameActivity.explanation.get(0);
+                    String s = GameActivity.explanation.get(1);
                     ((GameActivity) getActivity()).personalTxt1.setText(s);
                     ((GameActivity) getActivity()).personalTxt2.setText(s);
 
