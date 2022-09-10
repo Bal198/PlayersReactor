@@ -135,7 +135,7 @@ public class FiveDifferent extends MyFragment {
 
     public void startGame() {
         service.schedule(runnable1, 1500, TimeUnit.MILLISECONDS);
-        future = service.scheduleAtFixedRate(runnable, 1500, 5000, TimeUnit.MILLISECONDS);
+        future = service.scheduleAtFixedRate(runnable, 1500, speed, TimeUnit.MILLISECONDS);
     }
 
     public void resume() {
@@ -151,9 +151,9 @@ public class FiveDifferent extends MyFragment {
 
     public boolean check() {
         int copie = 0;
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                if (i == j) {
+        for (int i = 0; i < 6; i++) {
+            for (int j = i + 1; j < 6; j++) {
+                if (nums[i] == nums[j]) {
                     copie += 1;
                 }
             }
