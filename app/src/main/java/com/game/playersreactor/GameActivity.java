@@ -13,10 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.game.playersreactor.games.AreaGame;
-import com.game.playersreactor.games.DiceGame;
-import com.game.playersreactor.games.MyFragment;
-import com.game.playersreactor.games.ShoutFinalVictory;
+import com.game.playersreactor.games.*;
 
 import java.util.*;
 import java.util.concurrent.Executor;
@@ -81,6 +78,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         modeList = new ArrayList<>();
         modeList.add(new GameList(new AreaGame(), true));
+        modeList.add(new GameList(new Population(), true));
         Collections.shuffle(modeList);
 
 
@@ -115,14 +113,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         (personalTxt1 = findViewById(R.id.personal_txt1)).setVisibility(View.INVISIBLE);
         (personalTxt2 = findViewById(R.id.personal_txt2)).setVisibility(View.INVISIBLE);
 
-        // TODO: 10/09/2022 chiamare callfragment 
-        //callFragment();
-        replaceFragment(new AreaGame());
+        callFragment();
+        //replaceFragment(new Population());
     }
 
-    public void callFragment() {
-        //currentFragment = 10;
-        player1.addScore();
+    public void callFragment() {      
         if (currentFragment >= modeList.size()) {
             replaceFragment(new ShoutFinalVictory());
         } else {
@@ -248,6 +243,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             //player3btn.setBackgroundResource(R.drawable.player_btn);
             //player4btn.setBackgroundResource(R.drawable.player_btn);
 
+
             if (gameCount >= 3) {
                 gameCount = 0;
                 getSupportFragmentManager().findFragmentById(R.id.fragment_game).onDestroy();
@@ -294,6 +290,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             player2btn.setBackgroundResource(R.drawable.player_btn);
             //player3btn.setBackgroundResource(R.drawable.player_btn);
             //player4btn.setBackgroundResource(R.drawable.player_btn);
+
 
             if (gameCount >= 3) {
                 gameCount = 0;
