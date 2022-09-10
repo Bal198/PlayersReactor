@@ -56,8 +56,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences sharedPreferences = getSharedPreferences(mPrefs, MODE_PRIVATE);
         numPlayers = sharedPreferences.getInt(NUMPLAYERS, 0);
         difficulty = sharedPreferences.getInt(DIFFICULTY, 0);
-
-
         switch (numPlayers) {
             /*per ora faccia solo al versione con due giocatori*/
            /* case 0:
@@ -74,23 +72,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 setContentView(R.layout.activity_two_players);
             }
         }
-
-
         modeList = new ArrayList<>();
         //modeList.add(new GameList(new AreaGame(), true, 0));
-       //modeList.add(new GameList(new Population(), true, 1));
-        modeList.add(new GameList(new Capitals(), true, 2));
+        //modeList.add(new GameList(new Population(), true, 1));
+        //modeList.add(new GameList(new Capitals(), true, 2));
+        //modeList.add(new GameList(new DiceGame(), true, 3));
+        modeList.add(new GameList(new FiveDifferent(), true, 4));
         Collections.shuffle(modeList);
-
-
         shoutVictory = new ArrayList<>();
         shoutVictory = Arrays.asList(getResources().getStringArray(R.array.shout_victory));
         shoutLoss = new ArrayList<>();
         shoutLoss = Arrays.asList(getResources().getStringArray(R.array.shout_loss));
         explanation = new ArrayList<>();
         explanation = Arrays.asList(getResources().getStringArray(R.array.explanation));
-
-
         player2btn = findViewById(R.id.player_two_btn);
         player2btn.setOnClickListener(this);
         player2Score = findViewById(R.id.score_player_two);
@@ -105,20 +99,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         player4btn.setOnClickListener(this);
         player4Score = findViewById(R.id.score_player_four);
         player4Score.setText(String.format("%d", player4.getScore()));*/
-
         player1btn = findViewById(R.id.player_one_btn);
         player1btn.setOnClickListener(this);
         player1Score = findViewById(R.id.score_player_one);
         player1Score.setText(String.format("%d", player1.getScore()));
-
         (personalTxt1 = findViewById(R.id.personal_txt1)).setVisibility(View.INVISIBLE);
         (personalTxt2 = findViewById(R.id.personal_txt2)).setVisibility(View.INVISIBLE);
-
         callFragment();
         //replaceFragment(new Population());
     }
 
-    public void callFragment() {      
+    public void callFragment() {
         if (currentFragment >= modeList.size()) {
             replaceFragment(new ShoutFinalVictory());
         } else {
@@ -148,7 +139,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setClickalbleBtn(false);
         boolean check = fragment.check();
         gameCount++;
-
         switch (view.getId()) {
            /* case R.id.player_four_btn: {
                 if (check) {
@@ -184,7 +174,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         updateScore();
-
         if (check) {
             shoutVictory(view.getId());
         } else {
@@ -199,7 +188,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         //player4btn.setClickable(b);
     }
 
-
     public void updateScore() {
         player1Score.setText(String.format("%d", player1.getScore()));
         player2Score.setText(String.format("%d", player2.getScore()));
@@ -208,12 +196,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //        player4Score.setText(String.format("%d", player4.getScore()));
     }
 
-
     @SuppressLint({"ResourceAsColor", "NonConstantResourceId"})
     public void shoutVictory(int id) {
         int n = random.nextInt(10);
         MyFragment fragment = (MyFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_game);
-
         switch (id) {
             /*case R.id.player_four_btn: {
                 personalTxt2.setText(shoutVictory.get(n));
@@ -236,24 +222,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
         }
-
         ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
         service.schedule(() -> {
             player1btn.setBackgroundResource(R.drawable.player_btn);
             player2btn.setBackgroundResource(R.drawable.player_btn);
             //player3btn.setBackgroundResource(R.drawable.player_btn);
             //player4btn.setBackgroundResource(R.drawable.player_btn);
-
-
             if (gameCount >= 3) {
                 gameCount = 0;
                 getSupportFragmentManager().findFragmentById(R.id.fragment_game).onDestroy();
                 callFragment();
-            }else {
+            } else {
                 assert fragment != null;
                 fragment.resume();
             }
-
         }, 1, TimeUnit.SECONDS);
     }
 
@@ -261,7 +243,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void shoutLoss(int id) {
         int n = random.nextInt(10);
         MyFragment fragment = (MyFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_game);
-
         switch (id) {
             /*case R.id.player_four_btn: {
                 personalTxt2.setText(shoutLoss.get(n));
@@ -284,20 +265,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
         }
-
         ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
         service.schedule(() -> {
             player1btn.setBackgroundResource(R.drawable.player_btn);
             player2btn.setBackgroundResource(R.drawable.player_btn);
             //player3btn.setBackgroundResource(R.drawable.player_btn);
             //player4btn.setBackgroundResource(R.drawable.player_btn);
-
-
             if (gameCount >= 3) {
                 gameCount = 0;
                 getSupportFragmentManager().findFragmentById(R.id.fragment_game).onDestroy();
                 callFragment();
-            }else {
+            } else {
                 assert fragment != null;
                 fragment.resume();
             }

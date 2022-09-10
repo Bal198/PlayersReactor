@@ -40,17 +40,14 @@ public class Population extends MyFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         service = Executors.newScheduledThreadPool(1);
         poplutaionTxt1 = view.findViewById(R.id.txt1);
         poplutaionTxt2 = view.findViewById(R.id.txt2);
         country = new ArrayList<>();
         country = Arrays.asList(getResources().getStringArray(R.array.country));
         population = getResources().getIntArray(R.array.population);
-
         exp1 = view.findViewById(R.id.explanation1);
         exp2 = view.findViewById(R.id.explanation2);
-
         runnable = () -> {
             //in questo modo gli dico fare queste operazione sul main thread
             new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -67,13 +64,12 @@ public class Population extends MyFragment {
                     poplutaionTxt1.setTextColor(c);
                     poplutaionTxt2.setVisibility(View.VISIBLE);
                     poplutaionTxt1.setVisibility(View.VISIBLE);
-                    if(getActivity() != null) {
+                    if (getActivity() != null) {
                         ((GameActivity) getActivity()).setClickalbleBtn(true);
                     }
                 }
             });
         };
-
         setAllInvisible();
         getSpeed();
         showGameName();
@@ -81,13 +77,12 @@ public class Population extends MyFragment {
     }
 
     @SuppressLint("ResourceAsColor")
-    public synchronized void showGameName() {
+    public void showGameName() {
         exp2.setVisibility(View.VISIBLE);
         exp1.setVisibility(View.VISIBLE);
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             ((GameActivity) getActivity()).setClickalbleBtn(false);
         }
-
         service.schedule(new Runnable() {
             @Override
             public void run() {
@@ -98,11 +93,10 @@ public class Population extends MyFragment {
         }, 1500, TimeUnit.MILLISECONDS);
     }
 
-
     private void setAllInvisible() {
         ((GameActivity) requireActivity()).personalTxt1.setVisibility(View.INVISIBLE);
         ((GameActivity) requireActivity()).personalTxt2.setVisibility(View.INVISIBLE);
-        if(poplutaionTxt1 != null && poplutaionTxt2 != null) {
+        if (poplutaionTxt1 != null && poplutaionTxt2 != null) {
             poplutaionTxt2.setVisibility(View.INVISIBLE);
             poplutaionTxt1.setVisibility(View.INVISIBLE);
         }
@@ -124,14 +118,14 @@ public class Population extends MyFragment {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                if(getActivity() != null){
+                if (getActivity() != null) {
                     String s = GameActivity.explanation.get(1);
                     ((GameActivity) getActivity()).personalTxt1.setText(s);
                     ((GameActivity) getActivity()).personalTxt2.setText(s);
-
                     ((GameActivity) getActivity()).personalTxt1.setVisibility(View.VISIBLE);
                     ((GameActivity) getActivity()).personalTxt2.setVisibility(View.VISIBLE);
-                }}
+                }
+            }
         });
     }
 

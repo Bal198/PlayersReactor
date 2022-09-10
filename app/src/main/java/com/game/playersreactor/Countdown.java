@@ -20,13 +20,13 @@ public class Countdown extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mTextField = findViewById(R.id.countdown_txt);
         mTextField2 = findViewById(R.id.countdown_txt2);
-       timer=new CountDownTimer(100, 1000) {
-           // TODO: 04/09/2022 mettere timer a 3 secondi
+        timer = new CountDownTimer(100, 1000) {
+            // TODO: 04/09/2022 mettere timer a 3 secondi
             @Override
             public void onTick(long l) {
-                long m = l/1000;
-                mTextField.setText(String.format("%d", (int)m));
-                mTextField2.setText(String.format("%d", (int)m));
+                long m = l / 1000;
+                mTextField.setText(String.format("%d", (int) m));
+                mTextField2.setText(String.format("%d", (int) m));
             }
 
             @Override
@@ -34,10 +34,9 @@ public class Countdown extends AppCompatActivity {
                 openGameActivity();
             }
         }.start();
-
     }
 
-    public void openGameActivity(){
+    public void openGameActivity() {
         Intent gameIntent = new Intent(this, GameActivity.class);
         startActivity(gameIntent);
     }

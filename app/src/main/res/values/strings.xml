@@ -8,9 +8,11 @@
     <string name="countdown_txt">3</string>
 
     <string-array name="explanation">
-        <item>Tap when area is right!</item>
-        <item>Tap when population is right!</item>
+        <item>Which country has more area?</item>
+        <item>Who has a bigger population?</item>
         <item>Tap when capital is right!</item>
+        <item>Is the sum of both colors is equal?</item>
+        <item>5 different shapes!</item>
 
     </string-array>
 
@@ -27,6 +29,16 @@
         <item>@drawable/r4</item>
         <item>@drawable/r5</item>
         <item>@drawable/r6</item>
+    </string-array>
+
+    <string-array name="five_img">
+        <item>@drawable/a0</item>
+        <item>@drawable/a1</item>
+        <item>@drawable/a2</item>
+        <item>@drawable/a3</item>
+        <item>@drawable/a4</item>
+        <item>@drawable/a5</item>
+        <item>@drawable/a6</item>
     </string-array>
 
     <string-array name="dice_img">

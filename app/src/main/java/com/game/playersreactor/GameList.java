@@ -16,4 +16,7 @@ public class GameList {
         this.seq = seq;
     }
 
+    public void setInList(boolean inList) {
+        this.inList = inList;
+    }
 }

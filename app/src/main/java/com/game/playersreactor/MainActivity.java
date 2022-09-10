@@ -24,21 +24,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
-
         radioGroup = findViewById(R.id.radio_group);
-
-
-        settingButton=findViewById(R.id.setting_button);
+        settingButton = findViewById(R.id.setting_button);
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openSettingActivity();
             }
         });
-
-       playButton = findViewById(R.id.play_button);
+        playButton = findViewById(R.id.play_button);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,36 +41,35 @@ public class MainActivity extends AppCompatActivity {
                 openCountdownActivity();
             }
         });
-
         loadData();
         updateData();
     }
 
     public void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
-        SharedPreferences.Editor editor= sharedPreferences.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(NUMPLAYERS, radioGroup.indexOfChild(findViewById(radioGroup.getCheckedRadioButtonId())));
         editor.apply();
     }
 
-    public void loadData(){
+    public void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
         numPlayers = sharedPreferences.getInt(NUMPLAYERS, 0);
     }
 
-    public void updateData(){
+    public void updateData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
         int i = sharedPreferences.getInt(NUMPLAYERS, 0);
-        ((RadioButton) ((RadioGroup)findViewById(R.id.radio_group)).getChildAt(i)).setChecked(true);
+        ((RadioButton) ((RadioGroup) findViewById(R.id.radio_group)).getChildAt(i)).setChecked(true);
     }
 
-    public void openSettingActivity(){
+    public void openSettingActivity() {
         Intent settingIntent = new Intent(this, SettingActivity.class);
         startActivity(settingIntent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
-    public void openCountdownActivity(){
+    public void openCountdownActivity() {
         Intent countdownIntent = new Intent(this, Countdown.class);
         startActivity(countdownIntent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

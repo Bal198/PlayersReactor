@@ -6,7 +6,6 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-
 // TODO: 04/09/2022 Da inserire una lista di check box per selezionare i vari giochi; DA FARE PER ULTIMO
 
 public class GameSelection extends AppCompatActivity {
@@ -18,7 +17,6 @@ public class GameSelection extends AppCompatActivity {
         setContentView(R.layout.activity_game_selection);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         backToSettings = findViewById(R.id.back_to_settings);
         backToSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,6 +25,7 @@ public class GameSelection extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void finish() {
         super.finish();

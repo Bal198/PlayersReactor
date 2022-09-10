@@ -10,6 +10,7 @@ public class Player {
     public void addScore() {
         this.score++;
     }
+
     public void subScore() {
         this.score--;
     }

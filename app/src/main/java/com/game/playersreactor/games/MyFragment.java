@@ -16,7 +16,6 @@ public abstract class MyFragment extends Fragment {
     private int difficulty;
     public int speed;
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +26,7 @@ public abstract class MyFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         difficulty = GameActivity.difficulty;
     }
+
     public int getRandomColor() {
         Random random = new Random();
         int r = (int) (random.nextInt() / 2 + 0.5);
@@ -34,6 +34,7 @@ public abstract class MyFragment extends Fragment {
         int b = (int) (random.nextInt() / 2 + 0.5);
         return Color.argb(255, r, g, b);
     }
+
     public void getSpeed() {
         switch (difficulty) {
             case 1: {
@@ -52,8 +53,12 @@ public abstract class MyFragment extends Fragment {
     }
 
     public abstract boolean check(); //controlla la risposta del giocatore dopo il click
+
     public abstract void startGame(); //inizia il gioco
+
     public abstract void showExplanation(); //mostra il titolo per gioco
+
     public abstract void stop(); //fine gioco
+
     public abstract void resume();
 }

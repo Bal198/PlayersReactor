@@ -3,28 +3,33 @@ package com.game.playersreactor.games;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.widget.ImageView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.game.playersreactor.GameActivity;
 import com.game.playersreactor.R;
 
-import java.util.*;
-
-import static java.lang.Thread.sleep;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class DiceGame extends MyFragment {
-
     public List<ImageView> dice;
-    public CountDownTimer t1;
     private Random random = new Random();
     private int redTot, greenTot, nums[] = new int[6];
-    private int difficulty;
-    private GameActivity gameActivity = ((GameActivity) getActivity());
     private ArrayList<Integer> diceImg;
+    public ScheduledExecutorService service;
+    public ScheduledFuture<?> future;
+    public Runnable runnable;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +41,7 @@ public class DiceGame extends MyFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        service = Executors.newScheduledThreadPool(1);
         dice = new ArrayList();
         dice.add(getActivity().findViewById(R.id.dice1));
         dice.add(getActivity().findViewById(R.id.dice2));
@@ -44,12 +49,8 @@ public class DiceGame extends MyFragment {
         dice.add(getActivity().findViewById(R.id.dice4));
         dice.add(getActivity().findViewById(R.id.dice5));
         dice.add(getActivity().findViewById(R.id.dice6));
-
         exp1 = view.findViewById(R.id.explanation1);
         exp2 = view.findViewById(R.id.explanation2);
-
-        difficulty = GameActivity.difficulty;
-
         diceImg = new ArrayList<>();
         diceImg.add(R.drawable.g1);
         diceImg.add(R.drawable.g2);
@@ -63,23 +64,28 @@ public class DiceGame extends MyFragment {
         diceImg.add(R.drawable.r4);
         diceImg.add(R.drawable.r5);
         diceImg.add(R.drawable.r6);
-
+        runnable = () -> {
+            //in questo modo gli dico fare queste operazione sul main thread
+            new Handler(Looper.getMainLooper()).post(() -> {
+                int numDice;
+                int numImg;
+                numDice = random.nextInt(6);
+                numImg = random.nextInt(12);
+                if (dice.get(numDice).getVisibility() == View.INVISIBLE) {
+                    dice.get(numDice).setVisibility(View.VISIBLE);
+                }
+                dice.get(numDice).setImageResource(diceImg.get(numImg));
+                nums[numDice] = numImg;
+                if (getActivity() != null) {
+                    ((GameActivity) getActivity()).setClickalbleBtn(true);
+                }
+            });
+        };
         setAllInvisible();
+        getSpeed();
         showGameName();
-
+        startGame();
     }
-
-    @SuppressLint("SetTextI18n")
-    public void showExplanation() {
-
-        ((GameActivity) (getActivity())).personalTxt1.setText("Tap when sum of both colors is equal");
-        ((GameActivity) getActivity()).personalTxt2.setText("Tap when sum of both colors is equal");
-
-        ((GameActivity) getActivity()).personalTxt1.setVisibility(View.VISIBLE);
-        ((GameActivity) getActivity()).personalTxt2.setVisibility(View.VISIBLE);
-
-    }
-
 
     private void setAllInvisible() {
         ((GameActivity) getActivity()).personalTxt1.setVisibility(View.INVISIBLE);
@@ -89,66 +95,52 @@ public class DiceGame extends MyFragment {
         }
     }
 
-    public void startGame() {
-        final int[] time = new int[1];
-
-        new CountDownTimer(1000, 600) {
+    @SuppressLint({"ResourceAsColor", "SetTextI18n"})
+    public void showGameName() {
+        exp2.setVisibility(View.VISIBLE);
+        exp1.setVisibility(View.VISIBLE);
+        if (getActivity() != null) {
+            ((GameActivity) getActivity()).setClickalbleBtn(false);
+        }
+        service.schedule(new Runnable() {
             @Override
-            public void onTick(long l) {
-
+            public void run() {
+                exp2.setVisibility(View.INVISIBLE);
+                exp1.setVisibility(View.INVISIBLE);
+                showExplanation();
             }
-
-            @Override
-            public void onFinish() {
-                switch (difficulty) {
-                    case 1: {
-                        time[0] = 1200;
-                        break;
-                    }
-                    case 2: {
-                        time[0] = 750;
-                        break;
-                    }
-                    default: {
-                        time[0] = 1800;
-                        break;
-                    }
-                }
-
-
-                t1 = new CountDownTimer(100000000, time[0]) {
-                    @Override
-                    public void onTick(long l) {
-                        int numDice;
-                        int numImg;
-                        numDice = random.nextInt(6);
-                        numImg = random.nextInt(12);
-                        if (dice.get(numDice).getVisibility() == View.INVISIBLE) {
-                            dice.get(numDice).setVisibility(View.VISIBLE);
-                        }
-                        dice.get(numDice).setImageResource(diceImg.get(numImg));
-
-                        nums[numDice] = numImg;
-                    }
-
-                    @Override
-                    public void onFinish() {
-
-                    }
-                }.start();
-            }
-        }.start();
-
-
+        }, 1500, TimeUnit.MILLISECONDS);
     }
 
-    public void stop(){
-        t1.cancel();
+    public void showExplanation() {
+        //in questo modo gli dico fare queste operazione sul main thread
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                if (getActivity() != null) {
+                    String s = GameActivity.explanation.get(3);
+                    ((GameActivity) getActivity()).personalTxt1.setText(s);
+                    ((GameActivity) getActivity()).personalTxt2.setText(s);
+                    ((GameActivity) getActivity()).personalTxt1.setVisibility(View.VISIBLE);
+                    ((GameActivity) getActivity()).personalTxt2.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    public void startGame() {
+        future = service.scheduleAtFixedRate(runnable, 1500, speed, TimeUnit.MILLISECONDS);
+    }
+
+    public void resume() {
+        stop();
+        showExplanation();
+        future = service.scheduleAtFixedRate(runnable, 500, speed, TimeUnit.MILLISECONDS);
     }
 
     @Override
-    public void resume() {
-
+    public void stop() {
+        future.cancel(false);
     }
 
     public boolean check() {
@@ -159,37 +151,6 @@ public class DiceGame extends MyFragment {
                 greenTot += i;
             }
         }
-
-        if (redTot == greenTot) {
-            return true;
-        } else {
-            return false;
-        }
+        return redTot == greenTot;
     }
-
-    @SuppressLint({"ResourceAsColor", "SetTextI18n"})
-    public void showGameName() {
-        exp2.setVisibility(View.VISIBLE);
-        exp1.setVisibility(View.VISIBLE);
-
-        CountDownTimer timer = new CountDownTimer(1800, 1000) {
-            @Override
-            public void onTick(long l) {
-            }
-
-            @Override
-            public void onFinish() {
-                exp2.setVisibility(View.INVISIBLE);
-                exp1.setVisibility(View.INVISIBLE);
-                try {
-                    showExplanation();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                startGame();
-            }
-        }.start();
-
-    }
-
 }

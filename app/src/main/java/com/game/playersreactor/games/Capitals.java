@@ -1,7 +1,6 @@
 package com.game.playersreactor.games;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -43,7 +42,6 @@ public class Capitals extends MyFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         service = Executors.newScheduledThreadPool(1);
         capitalTxt1 = view.findViewById(R.id.txt11);
         capitalTxt2 = view.findViewById(R.id.txt21);
@@ -53,10 +51,8 @@ public class Capitals extends MyFragment {
         country = Arrays.asList(getResources().getStringArray(R.array.country));
         capital = new ArrayList<>();
         capital = Arrays.asList(getResources().getStringArray(R.array.capitals));
-
         exp1 = view.findViewById(R.id.explanation1);
         exp2 = view.findViewById(R.id.explanation2);
-
         runnable = () -> {
             //in questo modo gli dico fare queste operazione sul main thread
             new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -70,7 +66,6 @@ public class Capitals extends MyFragment {
                     } else {
                         leftValue = random.nextInt(capital.size());
                     }
-
                     String left = String.format("%s", capital.get(leftValue));
                     String right = String.format("%s", country.get(rightValue));
                     capitalTxt2.setText(left);
@@ -97,7 +92,6 @@ public class Capitals extends MyFragment {
                 }
             });
         };
-
         setAllInvisible();
         getSpeed();
         showGameName();
@@ -105,13 +99,12 @@ public class Capitals extends MyFragment {
     }
 
     @SuppressLint("ResourceAsColor")
-    public synchronized void showGameName() {
+    public void showGameName() {
         exp2.setVisibility(View.VISIBLE);
         exp1.setVisibility(View.VISIBLE);
         if (getActivity() != null) {
             ((GameActivity) getActivity()).setClickalbleBtn(false);
         }
-
         service.schedule(new Runnable() {
             @Override
             public void run() {
@@ -121,7 +114,6 @@ public class Capitals extends MyFragment {
             }
         }, 1500, TimeUnit.MILLISECONDS);
     }
-
 
     private void setAllInvisible() {
         ((GameActivity) requireActivity()).personalTxt1.setVisibility(View.INVISIBLE);
@@ -154,7 +146,6 @@ public class Capitals extends MyFragment {
                     String s = GameActivity.explanation.get(2);
                     ((GameActivity) getActivity()).personalTxt1.setText(s);
                     ((GameActivity) getActivity()).personalTxt2.setText(s);
-
                     ((GameActivity) getActivity()).personalTxt1.setVisibility(View.VISIBLE);
                     ((GameActivity) getActivity()).personalTxt2.setVisibility(View.VISIBLE);
                 }

@@ -21,7 +21,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public class AreaGame extends MyFragment {
-
     public TextView areaTxt1, areaTxt2;
     public List<String> country;
     public int[] area;
@@ -41,40 +40,33 @@ public class AreaGame extends MyFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         service = Executors.newScheduledThreadPool(1);
         areaTxt1 = view.findViewById(R.id.area_txt);
         areaTxt2 = view.findViewById(R.id.area_txt2);
         country = new ArrayList<>();
         country = Arrays.asList(getResources().getStringArray(R.array.country));
         area = getResources().getIntArray(R.array.area);
-
         exp1 = view.findViewById(R.id.explanation1);
         exp2 = view.findViewById(R.id.explanation2);
-
         runnable = () -> {
             //in questo modo gli dico fare queste operazione sul main thread
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    int c = getRandomColor();
-                    rightValue = random.nextInt(country.size());
-                    leftValue = random.nextInt(country.size());
-                    areaTxt2.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
-                    areaTxt1.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
-                    areaTxt2.setTextSize(24);
-                    areaTxt1.setTextSize(24);
-                    areaTxt2.setTextColor(c);
-                    areaTxt1.setTextColor(c);
-                    areaTxt2.setVisibility(View.VISIBLE);
-                    areaTxt1.setVisibility(View.VISIBLE);
-                    if(getActivity() != null) {
-                        ((GameActivity) getActivity()).setClickalbleBtn(true);
-                    }
+            new Handler(Looper.getMainLooper()).post(() -> {
+                int c = getRandomColor();
+                rightValue = random.nextInt(country.size());
+                leftValue = random.nextInt(country.size());
+                areaTxt2.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
+                areaTxt1.setText(String.format("%s < %s", country.get(leftValue), country.get(rightValue)));
+                areaTxt2.setTextSize(24);
+                areaTxt1.setTextSize(24);
+                areaTxt2.setTextColor(c);
+                areaTxt1.setTextColor(c);
+                areaTxt2.setVisibility(View.VISIBLE);
+                areaTxt1.setVisibility(View.VISIBLE);
+                if (getActivity() != null) {
+                    ((GameActivity) getActivity()).setClickalbleBtn(true);
                 }
             });
         };
-
         setAllInvisible();
         getSpeed();
         showGameName();
@@ -82,13 +74,12 @@ public class AreaGame extends MyFragment {
     }
 
     @SuppressLint("ResourceAsColor")
-    public synchronized void showGameName() {
+    public void showGameName() {
         exp2.setVisibility(View.VISIBLE);
         exp1.setVisibility(View.VISIBLE);
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             ((GameActivity) getActivity()).setClickalbleBtn(false);
         }
-
         service.schedule(new Runnable() {
             @Override
             public void run() {
@@ -98,7 +89,6 @@ public class AreaGame extends MyFragment {
             }
         }, 1500, TimeUnit.MILLISECONDS);
     }
-
 
     private void setAllInvisible() {
         ((GameActivity) requireActivity()).personalTxt1.setVisibility(View.INVISIBLE);
@@ -118,19 +108,19 @@ public class AreaGame extends MyFragment {
     }
 
     @Override
-    public synchronized void showExplanation() {
+    public void showExplanation() {
         //in questo modo gli dico fare queste operazione sul main thread
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                if(getActivity() != null){
-                String s = GameActivity.explanation.get(0);
-                ((GameActivity) getActivity()).personalTxt1.setText(s);
-                ((GameActivity) getActivity()).personalTxt2.setText(s);
-
-                ((GameActivity) getActivity()).personalTxt1.setVisibility(View.VISIBLE);
-                ((GameActivity) getActivity()).personalTxt2.setVisibility(View.VISIBLE);
-            }}
+                if (getActivity() != null) {
+                    String s = GameActivity.explanation.get(0);
+                    ((GameActivity) getActivity()).personalTxt1.setText(s);
+                    ((GameActivity) getActivity()).personalTxt2.setText(s);
+                    ((GameActivity) getActivity()).personalTxt1.setVisibility(View.VISIBLE);
+                    ((GameActivity) getActivity()).personalTxt2.setVisibility(View.VISIBLE);
+                }
+            }
         });
     }
 
