@@ -1,6 +1,7 @@
 package com.game.playersreactor;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -32,8 +33,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public static int difficulty;
     private static boolean sound;
     private static int numPlayers;
-    public List<String> gameName;
-    public List<String> gameExplanation;
     public List<String> shoutVictory;
     public List<String> shoutLoss;
     public static List<String> explanation;
@@ -81,13 +80,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
         modeList = new ArrayList<>();
-        modeList.add(new GameList(new DiceGame(), true, 0));
-        modeList.add(new GameList(new AreaGame(), true, 1));
+        modeList.add(new GameList(new AreaGame(), true));
+        Collections.shuffle(modeList);
 
-        //gameName = new ArrayList<>();
-        //gameName = Arrays.asList(getResources().getStringArray(R.array.game_name));
-        //gameExplanation = new ArrayList<>();
-        //gameExplanation = Arrays.asList(getResources().getStringArray(R.array.game_explanation));
 
         shoutVictory = new ArrayList<>();
         shoutVictory = Arrays.asList(getResources().getStringArray(R.array.shout_victory));
@@ -120,12 +115,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         (personalTxt1 = findViewById(R.id.personal_txt1)).setVisibility(View.INVISIBLE);
         (personalTxt2 = findViewById(R.id.personal_txt2)).setVisibility(View.INVISIBLE);
 
+        // TODO: 10/09/2022 chiamare callfragment 
         //callFragment();
         replaceFragment(new AreaGame());
     }
 
     public void callFragment() {
-
+        //currentFragment = 10;
+        player1.addScore();
         if (currentFragment >= modeList.size()) {
             replaceFragment(new ShoutFinalVictory());
         } else {
@@ -152,6 +149,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         MyFragment fragment = (MyFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_game);
         assert fragment != null;
         fragment.stop();
+        setClickalbleBtn(false);
         boolean check = fragment.check();
         gameCount++;
 
@@ -196,11 +194,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             shoutLoss(view.getId());
         }
-        if (gameCount >= 3) {
-            gameCount = 0;
-            // getSupportFragmentManager().findFragmentById(R.id.fragment_game).onDestroy();
-            //  callFragment();
-        }
+    }
+
+    public void setClickalbleBtn(boolean b) {
+        player1btn.setClickable(b);
+        player2btn.setClickable(b);
+        //player3btn.setClickable(b);
+        //player4btn.setClickable(b);
     }
 
 
@@ -248,8 +248,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             //player3btn.setBackgroundResource(R.drawable.player_btn);
             //player4btn.setBackgroundResource(R.drawable.player_btn);
 
-            assert fragment != null;
-            fragment.resume();
+            if (gameCount >= 3) {
+                gameCount = 0;
+                getSupportFragmentManager().findFragmentById(R.id.fragment_game).onDestroy();
+                callFragment();
+            }else {
+                assert fragment != null;
+                fragment.resume();
+            }
 
         }, 1, TimeUnit.SECONDS);
     }
@@ -289,9 +295,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             //player3btn.setBackgroundResource(R.drawable.player_btn);
             //player4btn.setBackgroundResource(R.drawable.player_btn);
 
-            assert fragment != null;
-            fragment.resume();
+            if (gameCount >= 3) {
+                gameCount = 0;
+                getSupportFragmentManager().findFragmentById(R.id.fragment_game).onDestroy();
+                callFragment();
+            }else {
+                assert fragment != null;
+                fragment.resume();
+            }
         }, 1, TimeUnit.SECONDS);
     }
 
+    public void openMainActivity() {
+        Intent gameIntent = new Intent(this, MainActivity.class);
+        startActivity(gameIntent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
 }

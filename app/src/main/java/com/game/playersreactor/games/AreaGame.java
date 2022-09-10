@@ -32,13 +32,12 @@ public class AreaGame extends MyFragment {
     private ArrayList<Integer> colorList;
 
     public ScheduledExecutorService service;
-    ScheduledFuture<?> future;
+    public ScheduledFuture<?> future;
     public Runnable runnable;
     public int speed;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_area_game, container, false);
     }
@@ -81,6 +80,9 @@ public class AreaGame extends MyFragment {
                     areaTxt1.setTextColor(colorList.get(c));
                     areaTxt2.setVisibility(View.VISIBLE);
                     areaTxt1.setVisibility(View.VISIBLE);
+                    if(getActivity() != null) {
+                        ((GameActivity) getActivity()).setClickalbleBtn(true);
+                    }
                 }
             });
         };
@@ -112,6 +114,9 @@ public class AreaGame extends MyFragment {
     public synchronized void showGameName() {
         exp2.setVisibility(View.VISIBLE);
         exp1.setVisibility(View.VISIBLE);
+        if(getActivity() != null) {
+            ((GameActivity) getActivity()).setClickalbleBtn(false);
+        }
 
         service.schedule(new Runnable() {
             @Override
@@ -147,13 +152,14 @@ public class AreaGame extends MyFragment {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
+                if(getActivity() != null){
                 String s = GameActivity.explanation.get(0);
-                ((GameActivity) (requireActivity())).personalTxt1.setText(s);
-                ((GameActivity) requireActivity()).personalTxt2.setText(s);
+                ((GameActivity) getActivity()).personalTxt1.setText(s);
+                ((GameActivity) getActivity()).personalTxt2.setText(s);
 
-                ((GameActivity) requireActivity()).personalTxt1.setVisibility(View.VISIBLE);
-                ((GameActivity) requireActivity()).personalTxt2.setVisibility(View.VISIBLE);
-            }
+                ((GameActivity) getActivity()).personalTxt1.setVisibility(View.VISIBLE);
+                ((GameActivity) getActivity()).personalTxt2.setVisibility(View.VISIBLE);
+            }}
         });
     }
 

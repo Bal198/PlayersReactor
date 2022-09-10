@@ -8,14 +8,10 @@ import com.game.playersreactor.games.DiceGame;
 public class GameList {
     public boolean inList = true;
     public Fragment game;
-    public int sequenceNumber;
 
-    public GameList(Fragment game, boolean inList, int sequenceNumber) {
+    public GameList(Fragment game, boolean inList) {
         this.game = game;
         this.inList = inList;
-        this.sequenceNumber = sequenceNumber;
     }
-
-
 
 }
