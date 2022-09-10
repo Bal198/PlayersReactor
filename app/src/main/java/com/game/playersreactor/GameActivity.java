@@ -72,12 +72,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 setContentView(R.layout.activity_two_players);
             }
         }
+
         modeList = new ArrayList<>();
         //modeList.add(new GameList(new AreaGame(), true, 0));
         //modeList.add(new GameList(new Population(), true, 1));
         //modeList.add(new GameList(new Capitals(), true, 2));
         //modeList.add(new GameList(new DiceGame(), true, 3));
-        modeList.add(new GameList(new FiveDifferent(), true, 4));
+        //modeList.add(new GameList(new FiveDifferent(), true, 4));
+        modeList.add(new GameList(new ColorNames(), true, 4));
+
         Collections.shuffle(modeList);
         shoutVictory = new ArrayList<>();
         shoutVictory = Arrays.asList(getResources().getStringArray(R.array.shout_victory));
