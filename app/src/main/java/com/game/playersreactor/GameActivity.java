@@ -137,10 +137,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
+        setClickalbleBtn(false);
         MyFragment fragment = (MyFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_game);
         assert fragment != null;
         fragment.stop();
-        setClickalbleBtn(false);
         boolean check = fragment.check();
         gameCount++;
         switch (view.getId()) {

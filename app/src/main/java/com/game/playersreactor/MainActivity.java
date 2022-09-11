@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
         selected = new boolean[TOTGAMES];
+        for(int i = 0 ; i<TOTGAMES; i++){
+            selected[i] = true;
+        }
 
         radioGroup = findViewById(R.id.radio_group);
         settingButton = findViewById(R.id.setting_button);

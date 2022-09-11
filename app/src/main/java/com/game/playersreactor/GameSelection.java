@@ -17,7 +17,6 @@ import java.util.List;
 
 import static com.game.playersreactor.MainActivity.SHARED_PREF;
 import static com.game.playersreactor.SettingActivity.mPrefs;
-// TODO: 04/09/2022 Da inserire una lista di check box per selezionare i vari giochi; DA FARE PER ULTIMO
 
 public class GameSelection extends AppCompatActivity implements View.OnClickListener {
     public SwitchCompat btn0, btn1, btn2, btn3, btn4, btn5, btn6;
