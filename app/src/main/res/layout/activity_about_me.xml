@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/about_me"
+        android:background="@drawable/background_settings">
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:layout_height="match_parent">
+        <Button
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:id="@+id/back_to_homepage"
+                android:background="@drawable/back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.045"
+                app:layout_constraintVertical_bias="0.023"/>
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:textColor="@color/white"
+                  android:textSize="25dp"
+                  android:text="A fast and light offline multiplayer game based on reflexes and reaction times.\n\n
+Challenge up to 4 friends and find who comes out on top!\n\n
+Explore our 7 games which test your knowledge as well as your reflexes. Great as an icebreaker! Have you run out of mobile data? Just press the button faster than your opponent and you will get a point.\n\nauthor: Balwinder Singh"/>
+    </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,7 @@ import static com.game.playersreactor.GameActivity.TOTGAMES;
 
 public class MainActivity extends AppCompatActivity {
     private Button settingButton;
+    private Button aboutMeButton;
     private Button playButton;
     private RadioGroup radioGroup;
     public static final String SHARED_PREF = "settPrefs";
@@ -42,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
                 openSettingActivity();
             }
         });
+
+        aboutMeButton = findViewById(R.id.about_me_button);
+        aboutMeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAboutMeActivity();
+            }
+        });
+
         playButton = findViewById(R.id.play_button);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
     public void openSettingActivity() {
         Intent settingIntent = new Intent(this, SettingActivity.class);
         startActivity(settingIntent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+    public void openAboutMeActivity() {
+        Intent intent = new Intent(this, AboutMe.class);
+        startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 

@@ -10,6 +10,9 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.PlayersReactor">
         <activity
+                android:name=".AboutMe"
+                android:exported="false"/>
+        <activity
                 android:name=".GameActivity"
                 android:exported="true"/>
         <activity
@@ -30,7 +33,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <meta-data android:name="preloaded_fonts" android:resource="@array/preloaded_fonts"/>
+
+        <meta-data
+                android:name="preloaded_fonts"
+                android:resource="@array/preloaded_fonts"/>
     </application>
 
 </manifest>
