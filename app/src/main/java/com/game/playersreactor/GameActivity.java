@@ -26,7 +26,7 @@ import static com.game.playersreactor.SettingActivity.DIFFICULTY;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String mPrefs = "settPrefs";
-    public static final int TOTGAMES = 6;
+    public static final int TOTGAMES = 7;
     public static int difficulty;
     private static boolean sound;
     private static int numPlayers;
@@ -37,7 +37,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             player2 = new Player(),
             player3 = new Player(),
             player4 = new Player();
-    public ArrayList<GameList> modeList;
+    public static ArrayList<GameList> modeList;
     public Button player1btn;
     public Button player2btn;
     //public Button player3btn;
@@ -73,17 +73,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-
         modeList = new ArrayList<>();
-        modeList = new ArrayList<>();
-        //public String[] name = {"area", "five", "dice", "color", "population", "capitals"};
-        //modeList.add(new GameList(new AreaGame(), true, 0));
-        //modeList.add(new GameList(new FiveDifferent(), true, 4));
-        //modeList.add(new GameList(new DiceGame(), true, 3));
-        //modeList.add(new GameList(new ColorNames(), true, 5));
-        //modeList.add(new GameList(new Population(), true, 1));
-        //modeList.add(new GameList(new Capitals(), true, 2));
-        modeList.add(new GameList(new TicTacToe(), true, 6));
+        modeList.add(new GameList(new AreaGame(), 0));
+        modeList.add(new GameList(new FiveDifferent(), 4));
+        modeList.add(new GameList(new DiceGame(), 3));
+        modeList.add(new GameList(new ColorNames(), 5));
+        modeList.add(new GameList(new Population(), 1));
+        modeList.add(new GameList(new Capitals(), 2));
+        modeList.add(new GameList(new TicTacToe(), 6));
         Collections.shuffle(modeList);
 
         shoutVictory = new ArrayList<>();

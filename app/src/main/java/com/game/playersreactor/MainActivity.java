@@ -13,6 +13,8 @@ import com.game.playersreactor.games.*;
 
 import java.util.ArrayList;
 
+import static com.game.playersreactor.GameActivity.TOTGAMES;
+
 public class MainActivity extends AppCompatActivity {
     private Button settingButton;
     private Button playButton;
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHARED_PREF = "settPrefs";
     public static final String NUMPLAYERS = "num_players";
     private int numPlayers;
+    public static boolean[] selected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+        selected = new boolean[TOTGAMES];
 
         radioGroup = findViewById(R.id.radio_group);
         settingButton = findViewById(R.id.setting_button);

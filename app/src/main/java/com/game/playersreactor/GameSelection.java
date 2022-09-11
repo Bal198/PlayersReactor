@@ -23,7 +23,7 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
     public SwitchCompat btn0, btn1, btn2, btn3, btn4, btn5, btn6;
     public List<SwitchCompat> btns;
     public boolean[] value;
-    public String[] name = {"area", "five", "dice", "color", "population", "capitals"};
+    public String[] name = {"area", "five", "dice", "color", "population", "capitals", "tictactoe"};
     public SharedPreferences sharedPreferences;
 
     @Override
@@ -62,6 +62,7 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
         btns.add(btn3);
         btns.add(btn4);
         btns.add(btn5);
+        btns.add(btn6);
 
         value = new boolean[GameActivity.TOTGAMES];
 
@@ -82,12 +83,14 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
         SharedPreferences sharedPreferences = getSharedPreferences(mPrefs, MODE_PRIVATE);
         for (int i = 0; i < GameActivity.TOTGAMES; i++) {
             value[i] = sharedPreferences.getBoolean(name[i], true);
+            MainActivity.selected[i] = value[i];
         }
     }
 
     public void updateData() {
         for (int i = 0; i < GameActivity.TOTGAMES; i++) {
             btns.get(i).setChecked(value[i]);
+            MainActivity.selected[i] = value[i];
         }
     }
 
@@ -95,7 +98,7 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         for (int i = 0; i < GameActivity.TOTGAMES; i++) {
-            //MainActivity.gList.get(i).setInList(btns.get(i).isChecked());
+            loadData();
         }
     }
 
