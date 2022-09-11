@@ -1,25 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".GameSelection"
-        android:background="@drawable/background_settings">
+        tools:context=".GameSelection">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_settings"
+            android:orientation="vertical"
+            android:layout_gravity="fill_horizontal">
 
+        <Button
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:id="@+id/back_to_settings"
+                android:background="@drawable/back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.045"
+                app:layout_constraintVertical_bias="0.023" tools:ignore="SpeakableTextPresentCheck"
+                android:layout_marginHorizontal="15dp" android:layout_marginVertical="15dp"/>
 
-    <Button
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:id="@+id/back_to_settings"
-            android:background="@drawable/back"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.045"
-            app:layout_constraintVertical_bias="0.023" tools:ignore="SpeakableTextPresentCheck"
-            android:layout_marginHorizontal="15dp" android:layout_marginVertical="15dp"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:scrollbars="vertical">
+                <androidx.appcompat.widget.SwitchCompat android:layout_width="wrap_content"
+                        android:button="@null"
+                        android:background="@drawable/checked"
+                        android:checked="true"
+                        android:thumb="@null"
+                        android:track="@null"
+                        android:id="@+id/box0"
+                        android:text="area"
+                        android:textColor="@color/white"
+                        android:textAlignment="center"
+                        android:textSize="25dp"
+                        android:fontFamily="@font/lightersdemo"
+                        android:layout_height="wrap_content"/>
+                <androidx.appcompat.widget.SwitchCompat android:layout_width="wrap_content"
+                        android:button="@null"
+                        android:background="@drawable/checked"
+                        android:checked="true"
+                        android:thumb="@null"
+                        android:track="@null"
+                        android:id="@+id/box1"
+                        android:text="five different"
+                        android:textColor="@color/white"
+                        android:textAlignment="center"
+                        android:textSize="25dp"
+                        android:fontFamily="@font/lightersdemo"
+                        android:layout_height="wrap_content"/>
+                <androidx.appcompat.widget.SwitchCompat android:layout_width="wrap_content"
+                        android:button="@null"
+                        android:background="@drawable/checked"
+                        android:checked="true"
+                        android:thumb="@null"
+                        android:track="@null"
+                        android:id="@+id/box2"
+                        android:text="dice game"
+                        android:textColor="@color/white"
+                        android:textAlignment="center"
+                        android:textSize="25dp"
+                        android:fontFamily="@font/lightersdemo"
+                        android:layout_height="wrap_content"/>
+                <androidx.appcompat.widget.SwitchCompat android:layout_width="wrap_content"
+                        android:button="@null"
+                        android:background="@drawable/checked"
+                        android:checked="true"
+                        android:thumb="@null"
+                        android:track="@null"
+                        android:id="@+id/box3"
+                        android:text="color names"
+                        android:textColor="@color/white"
+                        android:textAlignment="center"
+                        android:textSize="25dp"
+                        android:fontFamily="@font/lightersdemo"
+                        android:layout_height="wrap_content"/>
+                <androidx.appcompat.widget.SwitchCompat android:layout_width="wrap_content"
+                        android:button="@null"
+                        android:background="@drawable/checked"
+                        android:checked="true"
+                        android:thumb="@null"
+                        android:track="@null"
+                        android:id="@+id/box4"
+                        android:text="population"
+                        android:textColor="@color/white"
+                        android:textAlignment="center"
+                        android:textSize="25dp"
+                        android:fontFamily="@font/lightersdemo"
+                        android:layout_height="wrap_content"/>
+                <androidx.appcompat.widget.SwitchCompat android:layout_width="wrap_content"
+                        android:button="@null"
+                        android:background="@drawable/checked"
+                        android:checked="true"
+                        android:thumb="@null"
+                        android:track="@null"
+                        android:id="@+id/box5"
+                        android:text="capitals"
+                        android:textColor="@color/white"
+                        android:textAlignment="center"
+                        android:textSize="25dp"
+                        android:fontFamily="@font/lightersdemo"
+                        android:layout_height="wrap_content"/>
+                <androidx.appcompat.widget.SwitchCompat
+                        android:layout_width="wrap_content"
+                        android:button="@null"
+                        android:background="@drawable/checked"
+                        android:checked="true"
+                        android:thumb="@null"
+                        android:track="@null"
+                        android:id="@+id/box6"
+                        android:text="tic tac toe"
+                        android:textColor="@color/white"
+                        android:textAlignment="center"
+                        android:textSize="25dp"
+                        android:fontFamily="@font/lightersdemo"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
 
-</LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

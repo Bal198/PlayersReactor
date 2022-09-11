@@ -44,12 +44,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
         soundBtn = findViewById(R.id.switch1);
-        soundBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveData();
-            }
-        });
+        soundBtn.setOnClickListener(view -> saveData());
         spinnerDifficulty = findViewById(R.id.difficulty);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.difficulty,
                 R.layout.dropdwon_item);
@@ -72,7 +67,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("settPrefs", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(SOUND, soundBtn.isChecked());
         editor.putInt(DIFFICULTY, spinnerDifficulty.getSelectedItemPosition());

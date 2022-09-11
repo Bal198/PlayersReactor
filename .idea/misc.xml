@@ -3,19 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/checked.xml" value="0.1185" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/list_item.xml" value="0.1185" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/player_btn.xml" value="0.14074074074074075" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/player_loss_btn.xml" value="0.26510416666666664" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/player_selection.xml" value="0.14074074074074075" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/player_text_color.xml" value="0.14074074074074075" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/player_win_btn.xml" value="0.26510416666666664" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/switch.xml" value="0.1185" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/thumb.xml" value="0.1185" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/drawable/track.xml" value="0.1185" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/font/lighters_font.xml" value="0.14074074074074075" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/font/livvic_thin.xml" value="0.14074074074074075" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_countdown.xml" value="0.16145833333333334" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_game.xml" value="0.16145833333333334" />
-        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_game_selection.xml" value="0.16145833333333334" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_game_selection.xml" value="0.22" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_setting.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/activity_two_players.xml" value="0.264" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/drop.xml" value="0.17447916666666666" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/dropdwon_item.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/fragment_area_game.xml" value="0.25" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/fragment_capitals.xml" value="0.3333333333333333" />
@@ -24,7 +30,10 @@
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/fragment_five_different.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/fragment_population.xml" value="0.22" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/fragment_shout_final_victory.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/fragment_tic_tac_toe.xml" value="0.264" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/list_item.xml" value="0.22" />
         <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/layout/prova.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/singh/Desktop/PlayersReactor/app/src/main/res/menu/checkbox_done.xml" value="0.1890625" />
       </map>
     </option>
   </component>

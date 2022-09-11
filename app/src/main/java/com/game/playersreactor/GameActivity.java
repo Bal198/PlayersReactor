@@ -26,7 +26,7 @@ import static com.game.playersreactor.SettingActivity.DIFFICULTY;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String mPrefs = "settPrefs";
-    private static final int TOTGAMES = 1;
+    public static final int TOTGAMES = 6;
     public static int difficulty;
     private static boolean sound;
     private static int numPlayers;
@@ -73,15 +73,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
+
         modeList = new ArrayList<>();
+        modeList = new ArrayList<>();
+        //public String[] name = {"area", "five", "dice", "color", "population", "capitals"};
         //modeList.add(new GameList(new AreaGame(), true, 0));
+        //modeList.add(new GameList(new FiveDifferent(), true, 4));
+        //modeList.add(new GameList(new DiceGame(), true, 3));
+        //modeList.add(new GameList(new ColorNames(), true, 5));
         //modeList.add(new GameList(new Population(), true, 1));
         //modeList.add(new GameList(new Capitals(), true, 2));
-        //modeList.add(new GameList(new DiceGame(), true, 3));
-        //modeList.add(new GameList(new FiveDifferent(), true, 4));
-        modeList.add(new GameList(new ColorNames(), true, 4));
-
+        modeList.add(new GameList(new TicTacToe(), true, 6));
         Collections.shuffle(modeList);
+
         shoutVictory = new ArrayList<>();
         shoutVictory = Arrays.asList(getResources().getStringArray(R.array.shout_victory));
         shoutLoss = new ArrayList<>();
@@ -108,8 +112,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         player1Score.setText(String.format("%d", player1.getScore()));
         (personalTxt1 = findViewById(R.id.personal_txt1)).setVisibility(View.INVISIBLE);
         (personalTxt2 = findViewById(R.id.personal_txt2)).setVisibility(View.INVISIBLE);
+
         callFragment();
-        //replaceFragment(new Population());
     }
 
     public void callFragment() {
@@ -283,6 +287,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 fragment.resume();
             }
         }, 1, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void onBackPressed() {
+        openMainActivity();
     }
 
     public void openMainActivity() {

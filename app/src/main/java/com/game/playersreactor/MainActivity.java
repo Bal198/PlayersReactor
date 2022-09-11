@@ -9,6 +9,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.game.playersreactor.games.*;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private Button settingButton;
@@ -17,14 +20,15 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHARED_PREF = "settPrefs";
     public static final String NUMPLAYERS = "num_players";
     private int numPlayers;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+
         radioGroup = findViewById(R.id.radio_group);
         settingButton = findViewById(R.id.setting_button);
         settingButton.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveData();
+                updateData();
                 openCountdownActivity();
             }
         });
