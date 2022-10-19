@@ -10,3 +10,5 @@ button faster than your opponent and you will get a point.
 ■ Country area
 ■ National capitals
 ■ Counting forms and much more!!!
+
+watch 'Players reactor.pdf' for more details.
